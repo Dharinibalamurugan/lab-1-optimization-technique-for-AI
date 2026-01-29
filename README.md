@@ -1,1 +1,1 @@
-# lab-1-optimization-technique-for-AI
+# lab-optimization-technique-for-AI
