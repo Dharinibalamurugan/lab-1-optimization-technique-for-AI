@@ -1,0 +1,446 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNE2FJkSL/TEbeTnYrEvBIx",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Dharinibalamurugan/lab-1-optimization-technique-for-AI/blob/main/lab%201\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Question: 1\n",
+        "Maximize Z = 3x + 2y subject to x + y ≤ 4, x ≤ 2, y ≤ 3, x,y ≥ 0"
+      ],
+      "metadata": {
+        "id": "yoBNJtIToIqQ"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "LqG6yJUfnIjz",
+        "outputId": "6b390d45-be93-41c9-f8e1-a6039bbd2b9d"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2.0 2.0 10.0\n"
+          ]
+        }
+      ],
+      "source": [
+        "import pulp\n",
+        "lp = pulp.LpProblem(\"LPP1\", pulp.LpMaximize)\n",
+        "x = pulp.LpVariable('x', lowBound=0)\n",
+        "y = pulp.LpVariable('y', lowBound=0)\n",
+        "lp += 3*x + 2*y\n",
+        "lp += x + y <= 4\n",
+        "lp += x <= 2\n",
+        "lp += y <= 3\n",
+        "lp.solve()\n",
+        "print(x.value(), y.value(), pulp.value(lp.objective))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Question: 2\n",
+        "Maximize Z = 5x + 4y subject to 6x + 4y ≤ 24, x + 2y ≤ 6"
+      ],
+      "metadata": {
+        "id": "XjTX64Kjn1-Q"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pulp\n",
+        "lp = pulp.LpProblem(\"LPP2\", pulp.LpMaximize)\n",
+        "x = pulp.LpVariable('x', lowBound=0)\n",
+        "y = pulp.LpVariable('y', lowBound=0)\n",
+        "lp += 5*x + 4*y\n",
+        "lp += 6*x + 4*y <= 24\n",
+        "lp += x + 2*y <= 6\n",
+        "lp.solve()\n",
+        "print(x.value(), y.value(), pulp.value(lp.objective))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "YnoKnSQdomw6",
+        "outputId": "7362447c-1015-4199-b822-135b76715808"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "3.0 1.5 21.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Question: 3\n",
+        "Minimize Z = x + y subject to 2x + y ≥ 6, x + 2y ≥ 6"
+      ],
+      "metadata": {
+        "id": "-a1cDzBpouRx"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pulp\n",
+        "lp = pulp.LpProblem(\"LPP3\", pulp.LpMinimize)\n",
+        "x = pulp.LpVariable('x', lowBound=0)\n",
+        "y = pulp.LpVariable('y', lowBound=0)\n",
+        "lp += x + y\n",
+        "lp += 2*x + y >= 6\n",
+        "\n",
+        "lp += x + 2*y >= 6\n",
+        "lp.solve()\n",
+        "print(x.value(), y.value(), pulp.value(lp.objective))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "RWfswev6oNYZ",
+        "outputId": "91f737c0-c575-4e15-9b16-f64ab514acfb"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2.0 2.0 4.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Question: 4\n",
+        "Maximize Z = 4x + 3y subject to 2x + y ≤ 8, x + 2y ≤ 8"
+      ],
+      "metadata": {
+        "id": "2doXTx4ho2b5"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pulp\n",
+        "lp = pulp.LpProblem(\"LPP4\", pulp.LpMaximize)\n",
+        "x = pulp.LpVariable('x', lowBound=0)\n",
+        "y = pulp.LpVariable('y', lowBound=0)\n",
+        "lp += 4*x + 3*y\n",
+        "lp += 2*x + y <= 8\n",
+        "lp += x + 2*y <= 8\n",
+        "lp.solve()\n",
+        "print(x.value(), y.value(), pulp.value(lp.objective))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "0VFXIiL5o8Aa",
+        "outputId": "2406d9df-b1bd-4b27-cf5d-b0131d636051"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2.6666667 2.6666667 18.6666669\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Question: 5\n",
+        "Minimize Z = 3x + 5y subject to x + y ≥ 4, x ≤ 3, y ≤ 3"
+      ],
+      "metadata": {
+        "id": "Hor0kN75pDSR"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pulp\n",
+        "lp = pulp.LpProblem(\"LPP5\", pulp.LpMinimize)\n",
+        "x = pulp.LpVariable('x', lowBound=0)\n",
+        "y = pulp.LpVariable('y', lowBound=0)\n",
+        "lp += 3*x + 5*y\n",
+        "lp += x + y >= 4\n",
+        "lp += x <= 3\n",
+        "lp += y <= 3\n",
+        "lp.solve()\n",
+        "print(x.value(), y.value(), pulp.value(lp.objective))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "10Q4YOC9pFfx",
+        "outputId": "95099618-4f1e-4a5b-a41f-dbda0559594e"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "3.0 1.0 14.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "Question: 6\n",
+        "Maximize Z = 6x + 5y subject to x + y ≤ 5, 3x + 2y ≤ 12"
+      ],
+      "metadata": {
+        "id": "hl0fxbdFpOvS"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pulp\n",
+        "lp = pulp.LpProblem(\"LPP6\", pulp.LpMaximize)\n",
+        "x = pulp.LpVariable('x', lowBound=0)\n",
+        "\n",
+        "y = pulp.LpVariable('y', lowBound=0)\n",
+        "lp += 6*x + 5*y\n",
+        "lp += x + y <= 5\n",
+        "lp += 3*x + 2*y <= 12\n",
+        "lp.solve()\n",
+        "print(x.value(), y.value(), pulp.value(lp.objective))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lksVNxHhpQ-J",
+        "outputId": "c507578d-79df-4a17-e331-9b80721792ed"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2.0 3.0 27.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Question:7\n",
+        "Minimize Z = 2x + 3y subject to x + y ≥ 5, x,y ≥ 1"
+      ],
+      "metadata": {
+        "id": "xqA2jQoipYoB"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pulp\n",
+        "lp = pulp.LpProblem(\"LPP7\", pulp.LpMinimize)\n",
+        "x = pulp.LpVariable('x', lowBound=1)\n",
+        "y = pulp.LpVariable('y', lowBound=1)\n",
+        "lp += 2*x + 3*y\n",
+        "lp += x + y >= 5\n",
+        "lp.solve()\n",
+        "print(x.value(), y.value(), pulp.value(lp.objective))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HqwtDA0fpgAh",
+        "outputId": "a08c38fc-3950-49e2-d69e-6cd80e91f677"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "4.0 1.0 11.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Question: 8\n",
+        "Maximize Z = 7x + 6y subject to 2x + y ≤ 6, x + 2y ≤ 6"
+      ],
+      "metadata": {
+        "id": "vhXuT89Qpjpi"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pulp\n",
+        "lp = pulp.LpProblem(\"LPP8\", pulp.LpMaximize)\n",
+        "x = pulp.LpVariable('x', lowBound=0)\n",
+        "y = pulp.LpVariable('y', lowBound=0)\n",
+        "lp += 7*x + 6*y\n",
+        "lp += 2*x + y <= 6\n",
+        "lp += x + 2*y <= 6\n",
+        "lp.solve()\n",
+        "print(x.value(), y.value(), pulp.value(lp.objective))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Qk8cfIIpplmR",
+        "outputId": "4adf6f82-2167-4279-fe2f-84b7b22afa1f"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2.0 2.0 26.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Question: 9\n",
+        "Minimize Z = x + 4y subject to x + 2y ≥ 8, x ≥ 2"
+      ],
+      "metadata": {
+        "id": "Pdu4ZDhQptLR"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pulp\n",
+        "lp = pulp.LpProblem(\"LPP9\", pulp.LpMinimize)\n",
+        "x = pulp.LpVariable('x', lowBound=2)\n",
+        "y = pulp.LpVariable('y', lowBound=0)\n",
+        "\n",
+        "lp += x + 4*y\n",
+        "lp += x + 2*y >= 8\n",
+        "lp.solve()\n",
+        "print(x.value(), y.value(), pulp.value(lp.objective))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "H6-UupNZpvMx",
+        "outputId": "0d08803d-9c97-46e2-ebe2-26c799d0c138"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "8.0 0.0 8.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Question: 10\n",
+        "Maximize Z = 5x + 3y subject to x + y ≤ 7, x ≤ 4, y ≤ 5"
+      ],
+      "metadata": {
+        "id": "FiU8_Q56p1Vy"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pulp\n",
+        "lp = pulp.LpProblem(\"LPP10\", pulp.LpMaximize)\n",
+        "x = pulp.LpVariable('x', lowBound=0)\n",
+        "y = pulp.LpVariable('y', lowBound=0)\n",
+        "lp += 5*x + 3*y\n",
+        "lp += x + y <= 7\n",
+        "lp += x <= 4\n",
+        "lp += y <= 5\n",
+        "lp.solve()\n",
+        "print(x.value(), y.value(), pulp.value(lp.objective))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "e2Q3FxD3p4TB",
+        "outputId": "5f220c6c-8663-4a08-ea06-a1033a292db2"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "4.0 3.0 29.0\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
